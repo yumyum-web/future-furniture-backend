@@ -81,3 +81,8 @@ async def login(response: Response, form_data: OAuth2PasswordRequestForm = Depen
 async def logout(response: Response, current_user: User = Depends(get_current_user_from_cookie)):
     response.delete_cookie(key="access_token")
     return {"message": "Successfully logged out"}
+
+
+@router.get("/me", response_model=User)
+async def get_me(current_user: User = Depends(get_current_user_from_cookie)):
+    return current_user
